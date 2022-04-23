@@ -117,6 +117,6 @@ if __name__ == "__main__":
     
     key_path = config("GOOGLE_KEY_PATH")
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
-    filepath = r"C:\Users\admin\Documents\repos\riiid_auto_translator\translators\1학년_YBM(박).hwp.json"
+    filepath = ""
 
     main(filepath)
