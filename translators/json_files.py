@@ -96,11 +96,13 @@ def main(filepath):
 
     supported_filetypes = ["json", "xlsx"]
 
+    # find files and make a list
     if Path(filepath).is_dir():
         found_files = list(Path(filepath).rglob("*"))
     if Path(filepath).is_file():
         found_files = [Path(filepath)]
 
+    # check the list and raise error if supported types not found
     if Path(filepath).is_dir() and all(
         [f.ext in supported_filetypes for f in found_files]
     ):
@@ -108,6 +110,7 @@ def main(filepath):
             f"Could not find a supported file. Currently supporting: {', '.join(supported_filetypes)}"
         )
 
+    # begin main function
     dl = get_dict_list(filepath)
     tdl = get_translated_dict_list(dl)
     save_to_new_file(filepath, tdl)
