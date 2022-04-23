@@ -73,6 +73,7 @@ def save_to_new_file(newfilepath: str, dict_list: List[Dict]) -> None:
         ------
         None
     """
+
     output_folder = "output"
 
     newfilepath = Path(newfilepath)
@@ -92,11 +93,28 @@ def save_to_new_file(newfilepath: str, dict_list: List[Dict]) -> None:
 
 def main(filepath):
 
+    if not isinstance(filepath, str):
+        raise TypeError("newfilepath has to be str type.")
+
+    supported_filetypes = ['json', 'xlsx']
+
+    if Path(filepath).is_dir():
+        found_files = list(Path(filepath).rglob("*"))
+    if Path(filepath).is_file():
+        found_files = [Path(filepath)]
+
+    if Path(filepath).is_dir() and all(
+        [f.ext in supported_filetypes for f in found_files]
+        ):
+        raise FileNotFoundError(f"Could not find a supported file. Currently supporting: {', '.join(supported_filetypes)}")
+    
+
     dl = get_dict_list(filepath)
     tdl = get_translated_dict_list(dl)
     save_to_new_file(filepath, tdl)
 
 if __name__ == "__main__":
+    
     key_path = config("GOOGLE_KEY_PATH")
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
     filepath = r"C:\Users\admin\Documents\repos\riiid_auto_translator\translators\1학년_YBM(박).hwp.json"
