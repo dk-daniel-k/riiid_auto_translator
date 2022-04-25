@@ -94,7 +94,7 @@ def main(filepath):
     if not isinstance(filepath, str):
         raise TypeError("newfilepath has to be str type.")
 
-    supported_filetypes = ["json", "xlsx"]
+    supported_filetypes = [".json", ".xlsx"]
 
     # find files and make a list
     if Path(filepath).is_dir():
@@ -104,7 +104,7 @@ def main(filepath):
 
     # check the list and raise error if supported types not found
     if Path(filepath).is_dir() and all(
-        [f.ext in supported_filetypes for f in found_files]
+        [f.suffix not in supported_filetypes for f in found_files]
     ):
         raise FileNotFoundError(
             f"Could not find a supported file. Currently supporting: {', '.join(supported_filetypes)}"
@@ -120,6 +120,6 @@ if __name__ == "__main__":
 
     key_path = config("GOOGLE_KEY_PATH")
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
-    filepath = ""
+    filepath = r"C:\Users\admin\Documents\Studio 2017\Projects\Riiid_EN-KR\en-US"
 
     main(filepath)
