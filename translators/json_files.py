@@ -58,6 +58,23 @@ def get_translated_dict_list(dict_list: List[Dict]) -> List[Dict]:
         new_dict = dict(zip(d.keys(), new_list))
         new_dict_list.append(new_dict)
 
+
+    # key_generator = (v for d in dict_list for v in list(d.keys()))
+    # bool_map = (isinstance(v, str) for d in dict_list for v in list(d.values()))
+    # original_value_list = (v for d in dict_list for v in list(d.values()))
+    # string_value_list = [v for d in dict_list for v in list(d.values()) if isinstance(v, str)]
+
+    # result_list = []
+    # a = 10
+    # for i in range(0, len(string_value_list), a):
+    #     result = ah.translate_text(string_value_list[:i+a])
+    #     result_list.extend([d['translatedText'] for d in result])
+    
+    
+
+    
+
+
     return new_dict_list
 
 
@@ -124,6 +141,20 @@ def main(filepath):
 if __name__ == "__main__":
 
     
-    filepath = r"C:\Users\admin\Downloads\parsed_rev\내신_1학년"
+    filepath = r"C:\Users\admin\Downloads\parsed_rev\Smart All Grammar (Level 구분)"
     setenv()
     main(filepath)
+
+    # to do:
+    # separate a main.py and create a class that handles function usage
+    # based on file extensions
+
+    # try converting txts into docxs, translate, and turn them back into txt (for speed)
+    
+    # if I pick a folder with multiple folders inside, the structure should be replicated inside /output
+    # so I don't have to do this manually
+
+    # multiprocessing / progress bar
+
+    # test (make sure input json # and output json # are the same)
+    # write unit test but also write in-functionv validation
