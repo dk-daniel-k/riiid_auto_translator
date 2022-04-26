@@ -24,9 +24,12 @@ def get_dict_list(filepath: str) -> List[Dict]:
 def get_translated_dict_list(dict_list: List[Dict]) -> List[Dict]:
     """Handle translation.
 
-    This function iterates each dict in the list and call Google Translation
-    API which responds with translated text. Each value is then replaced with
-    the translated text.
+    This function iterates each dict in the list, creates a list sequence of
+    the dict's values and call Google Translation API which responds with 
+    a list sequence of translated texts. Each item in the list of translation
+    is then compared agains the bool_map in order to create a dict with
+    translated text and also with other non-strings that were not sent to
+    Google for translation. 
 
     Params
     ------
@@ -57,23 +60,6 @@ def get_translated_dict_list(dict_list: List[Dict]) -> List[Dict]:
 
         new_dict = dict(zip(d.keys(), new_list))
         new_dict_list.append(new_dict)
-
-
-    # key_generator = (v for d in dict_list for v in list(d.keys()))
-    # bool_map = (isinstance(v, str) for d in dict_list for v in list(d.values()))
-    # original_value_list = (v for d in dict_list for v in list(d.values()))
-    # string_value_list = [v for d in dict_list for v in list(d.values()) if isinstance(v, str)]
-
-    # result_list = []
-    # a = 10
-    # for i in range(0, len(string_value_list), a):
-    #     result = ah.translate_text(string_value_list[:i+a])
-    #     result_list.extend([d['translatedText'] for d in result])
-    
-    
-
-    
-
 
     return new_dict_list
 
