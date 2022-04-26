@@ -45,6 +45,7 @@ def get_translated_dict_list(dict_list: List[Dict]) -> List[Dict]:
         original_value_list = [v for v in d.values()]
         string_value_list = [v for v in d.values() if isinstance(v, str)]
 
+        # google cloud translation API call made here
         result = ah.translate_text_with_model("en", string_value_list)
         result = [v["translatedText"] for v in result]
 
@@ -76,6 +77,8 @@ def save_to_new_file(newfilepath: str, dict_list: List[Dict]) -> None:
     None
     """
 
+    # creation of new folder and files is a common function and should be
+    # separated into another file.
     output_folder = "output"
 
     newfilepath = Path(newfilepath)
@@ -120,6 +123,6 @@ if __name__ == "__main__":
 
     key_path = config("GOOGLE_KEY_PATH")
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
-    filepath = r"C:\Users\admin\Documents\Studio 2017\Projects\Riiid_EN-KR\en-US"
+    filepath = r"C:\Users\admin\Documents\repos\riiid_auto_translator\translators\1학년_YBM(박).hwp.json"
 
     main(filepath)
