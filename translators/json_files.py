@@ -147,6 +147,8 @@ if __name__ == "__main__":
 
     # to do:
 
+    # add capability for xls (just a matter of switching MIME type)
+
     # clean up the current code
 
     # separate a main.py and create a class that handles function usage
