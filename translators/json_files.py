@@ -1,10 +1,8 @@
 import json
-import os
 from pathlib import Path
 from typing import Dict, List
 
-from decouple import config
-
+from setenv import setenv
 import api_handler as ah
 
 
@@ -41,6 +39,7 @@ def get_translated_dict_list(dict_list: List[Dict]) -> List[Dict]:
     new_dict_list = []
 
     for d in dict_list:
+        print(f"{dict_list.index(d)}", end="\r")
         bool_map = [isinstance(v, str) for v in d.values()]
         original_value_list = [v for v in d.values()]
         string_value_list = [v for v in d.values() if isinstance(v, str)]
@@ -97,7 +96,7 @@ def main(filepath):
     if not isinstance(filepath, str):
         raise TypeError("newfilepath has to be str type.")
 
-    supported_filetypes = [".json", ".xlsx"]
+    supported_filetypes = [".json"]
 
     # find files and make a list
     if Path(filepath).is_dir():
@@ -114,15 +113,17 @@ def main(filepath):
         )
 
     # begin main function
-    dl = get_dict_list(filepath)
-    tdl = get_translated_dict_list(dl)
-    save_to_new_file(filepath, tdl)
+    for ff in found_files:
+        print("starting: " + ff.name)
+        dl = get_dict_list(ff)
+        tdl = get_translated_dict_list(dl)
+        save_to_new_file(ff, tdl)
+        
 
 
 if __name__ == "__main__":
 
-    key_path = config("GOOGLE_KEY_PATH")
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
-    filepath = r"C:\Users\admin\Documents\repos\riiid_auto_translator\translators\1학년_YBM(박).hwp.json"
-
+    
+    filepath = r"C:\Users\admin\Downloads\parsed_rev\내신_1학년"
+    setenv()
     main(filepath)
