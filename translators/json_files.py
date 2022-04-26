@@ -141,11 +141,14 @@ def main(filepath):
 if __name__ == "__main__":
 
     
-    filepath = r"C:\Users\admin\Downloads\parsed_rev\Smart All Grammar (Level 구분)"
+    filepath = r"C:\Users\admin\Downloads\parsed_rev\내신_2학년"
     setenv()
     main(filepath)
 
     # to do:
+
+    # clean up the current code
+
     # separate a main.py and create a class that handles function usage
     # based on file extensions
 
@@ -158,3 +161,5 @@ if __name__ == "__main__":
 
     # test (make sure input json # and output json # are the same)
     # write unit test but also write in-functionv validation
+
+    # if there are files of same name, those files should be taken out of the queue

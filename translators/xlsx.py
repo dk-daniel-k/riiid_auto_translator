@@ -6,7 +6,7 @@ from api_handler import translate_document
 
 if __name__ == "__main__":
     setenv()
-    filepath = r"C:\Users\admin\Downloads\parsed_rev\Smart All Grammar (Level 구분)\SmartAllGrammar_문항정보.xlsx"
+    filepath = r"C:\Users\admin\Downloads\parsed_rev\내신_2학년\스마트올중학_영어강좌_중2_문항.xlsx"
     response = translate_document(config("PROJECT_ID"), filepath)
 
     output_folder = "output"
