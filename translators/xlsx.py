@@ -1,22 +1,35 @@
 from setenv import setenv
 from decouple import config
 from pathlib import Path
+import pandas as pd
 
 from api_handler import translate_document
 
 if __name__ == "__main__":
     setenv()
-    filepath = r"C:\Users\admin\Downloads\parsed_rev\내신_3학년\스마트올중학_영어강좌_중3_문항.xlsx"
-    response = translate_document(config("PROJECT_ID"), filepath)
+    filepaths = Path(r"C:\Users\admin\Downloads\parsed_rev\문법").glob('*')
 
-    output_folder = "output"
+    for filepath in filepaths:
+        if filepath.is_dir():
+            continue
 
-    newfilepath = Path(filepath)
-    new_output_path = newfilepath.parent.joinpath(output_folder)
-    new_output_path.mkdir(exist_ok=True)
+        filepath = filepath.as_posix()
+        df = pd.read_excel(filepath)
 
-    newfilepath = new_output_path / newfilepath.name
-    newfilepath.touch()
+        filepath += 'x'
+        df.to_excel(filepath)
 
-    with newfilepath.open(mode="wb") as nfp:
-        nfp.write(response)
+
+        response = translate_document(config("PROJECT_ID"), filepath)
+
+        output_folder = "output"
+
+        newfilepath = Path(filepath)
+        new_output_path = newfilepath.parent.joinpath(output_folder)
+        new_output_path.mkdir(exist_ok=True)
+
+        newfilepath = new_output_path / newfilepath.name
+        newfilepath.touch()
+
+        with newfilepath.open(mode="wb") as nfp:
+            nfp.write(response)

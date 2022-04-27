@@ -36,4 +36,6 @@ The module currently supports the following types of file: `json`.
 
     # if a file stops in middle due to error, remember the last position and start over from there next time
 
-    # create a debug=true mode so that api calls aren't made during development
+    # create a debug=true mode so that api calls aren't made during development when not necessary
+
+    # when sending a list of strings to google API, change the number of strings so that the combined characters do not exceed 5000 and as many as possible strings can be sent to API at one time OR test converting the json file into docx so that whole file can be sent at once (compare this with the previously completed file and see if translations are identical or close enough) 
