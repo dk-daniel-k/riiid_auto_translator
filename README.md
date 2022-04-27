@@ -10,13 +10,13 @@ The module currently supports the following types of file: `json`.
 
     # to do:
 
+    # refactor save to new file function with io.BytesIO
+
     # make a temporary dictionary (or permanently stored in a excel in the root folder) so that already-translated words don't have to invoke API
 
     # multiprocessing / progress bar
 
     # try converting txts into docxs, translate, and turn them back into txt (for speed)
-
-    
 
     # test (make sure input json # and output json # are the same)write unit test but also write in-functionv validation
 
