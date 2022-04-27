@@ -5,8 +5,10 @@ from translators import json_files, xlsx
 
 def main(filepath, output_path):
  
+    # find and make a list of files
     found_files = Validator(filepath).found_files
 
+    # set the environment for Google Cloud Translation key path
     setenv()
 
     extension_map = {
