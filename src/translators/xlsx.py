@@ -18,6 +18,7 @@ def convert_to_xlsx(filepath) -> PathLike:
 
 
 def translate(ff, filepath, output_path):
+    print("starting: " + ff.name)
     if ff.suffix == ".xls":
         excel_ff = convert_to_xlsx(ff)
     else:

@@ -1,12 +1,12 @@
 from utils.setenv import setenv
 from utils.validators import Validator
 from translators import json_files, xlsx
-
+from pathlib import Path
 
 def main(filepath, output_path):
  
     # find and make a list of files
-    found_files = Validator(filepath).found_files
+    found_files = Validator(filepath, output_path).found_files
 
     # set the environment for Google Cloud Translation key path
     setenv()
@@ -23,6 +23,6 @@ def main(filepath, output_path):
         translator(ff, filepath, output_path)
 
 if __name__ == "__main__":
-    output_path = "./output"
+    output_path = r"C:\Users\admin\Downloads\output"
     filepath = r"C:\Users\admin\Downloads\mock_data"
     main(filepath, output_path)

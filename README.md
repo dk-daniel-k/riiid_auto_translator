@@ -10,15 +10,16 @@ The module currently supports the following types of file: `json`.
 
     # to do:
 
-    # try converting txts into docxs, translate, and turn them back into txt (for speed)
+    # make a temporary dictionary (or permanently stored in a excel in the root folder) so that already-translated words don't have to invoke API
 
     # multiprocessing / progress bar
 
+    # try converting txts into docxs, translate, and turn them back into txt (for speed)
+
+    
+
     # test (make sure input json # and output json # are the same)write unit test but also write in-functionv validation
 
-    # if there are files of same name, those files should be taken out of the queue
-
-    # make a temporary dictionary (or permanently stored in a excel in the root folder) so that already-translated words don't have to invoke API
 
     # make a report at the end (look into logger), display 1) times API called 2) number of charts sent 3) number of new words added to the glossary excel
 
