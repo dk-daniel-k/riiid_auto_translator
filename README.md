@@ -10,7 +10,7 @@ The module currently supports the following types of file: `json`.
 
     # to do:
 
-    # refactor save to new file function with io.BytesIO
+    # refactor save to new file function with io.StringIO (json.dumps to STringIO)
 
     # make a temporary dictionary (or permanently stored in a excel in the root folder) so that already-translated words don't have to invoke API
 
