@@ -117,16 +117,17 @@ def main(filepath):
 
     # begin main function
     for ff in found_files:
-        print("starting: " + ff.name)
-        dl = get_dict_list(ff)
-        tdl = get_translated_dict_list(dl)
-        save_to_new_file(ff, tdl)
+        if ff.suffix == '.json':
+            print("starting: " + ff.name)
+            dl = get_dict_list(ff)
+            tdl = get_translated_dict_list(dl)
+            save_to_new_file(ff, tdl)
         
 
 
 if __name__ == "__main__":
 
     
-    filepath = r"C:\Users\admin\Downloads\parsed_rev\내신_3학년"
+    filepath = r"C:\Users\admin\Downloads\parsed_rev\문법"
     setenv()
     main(filepath)
