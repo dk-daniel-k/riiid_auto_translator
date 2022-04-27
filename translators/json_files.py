@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Dict, List
 
-from setenv import setenv
+
 import api_handler as ah
 
 
@@ -94,40 +94,11 @@ def save_to_new_file(newfilepath: str, dict_list: List[Dict]) -> None:
         nfp.write(json.dumps(dict_list, indent=2))
 
 
-def main(filepath):
-
-    if not isinstance(filepath, str):
-        raise TypeError("newfilepath has to be str type.")
-
-    supported_filetypes = [".json"]
-
-    # find files and make a list
-    if Path(filepath).is_dir():
-        found_files = list(Path(filepath).rglob("*"))
-    if Path(filepath).is_file():
-        found_files = [Path(filepath)]
-
-    # check the list and raise error if supported types not found
-    if Path(filepath).is_dir() and all(
-        [f.suffix not in supported_filetypes for f in found_files]
-    ):
-        raise FileNotFoundError(
-            f"Could not find a supported file. Currently supporting: {', '.join(supported_filetypes)}"
-        )
-
-    # begin main function
-    for ff in found_files:
-        if ff.suffix == '.json':
-            print("starting: " + ff.name)
-            dl = get_dict_list(ff)
-            tdl = get_translated_dict_list(dl)
-            save_to_new_file(ff, tdl)
-        
-
+def translate(filepath):
+    print("starting: " + filepath.name)
+    dl = get_dict_list(filepath)
+    tdl = get_translated_dict_list(dl)
+    save_to_new_file(filepath, tdl)
 
 if __name__ == "__main__":
-
-    
-    filepath = r"C:\Users\admin\Downloads\parsed_rev\문법"
-    setenv()
-    main(filepath)
+    pass
