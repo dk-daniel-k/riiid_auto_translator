@@ -10,15 +10,7 @@ The module currently supports the following types of file: `json`.
 
     # to do:
 
-    # add capability for xls (just a matter of switching MIME type)
-
-    # clean up the current code
-
-    # separate a main.py and create a class that handles function usage based on file extensions
-
     # try converting txts into docxs, translate, and turn them back into txt (for speed)
-    
-    # if I pick a folder with multiple folders inside, the structure should be replicated inside /output so I don't have to do this manually
 
     # multiprocessing / progress bar
 
