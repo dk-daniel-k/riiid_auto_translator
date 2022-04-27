@@ -2,8 +2,8 @@ import json
 from pathlib import Path
 from typing import Dict, List
 
-
-import api_handler as ah
+from . import api_handler as ah
+from utils.helpers import create_file_folder
 
 
 def get_dict_list(filepath: str) -> List[Dict]:
@@ -25,11 +25,11 @@ def get_translated_dict_list(dict_list: List[Dict]) -> List[Dict]:
     """Handle translation.
 
     This function iterates each dict in the list, creates a list sequence of
-    the dict's values and call Google Translation API which responds with 
+    the dict's values and call Google Translation API which responds with
     a list sequence of translated texts. Each item in the list of translation
     is then compared agains the bool_map in order to create a dict with
     translated text and also with other non-strings that were not sent to
-    Google for translation. 
+    Google for translation.
 
     Params
     ------
@@ -64,7 +64,7 @@ def get_translated_dict_list(dict_list: List[Dict]) -> List[Dict]:
     return new_dict_list
 
 
-def save_to_new_file(newfilepath: str, dict_list: List[Dict]) -> None:
+def save_to_new_file(filepath: Path, ff: str, dict_list: List[Dict], output_path: str) -> None:
     """Save the new file.
 
     If the output folder doesn't exist, a new output folder will be created
@@ -79,26 +79,18 @@ def save_to_new_file(newfilepath: str, dict_list: List[Dict]) -> None:
     None
     """
 
-    # creation of new folder and files is a common function and should be
-    # separated into another file.
-    output_folder = "output"
+    output_path = create_file_folder(filepath, ff, output_path)
 
-    newfilepath = Path(newfilepath)
-    new_output_path = newfilepath.parent.joinpath(output_folder)
-    new_output_path.mkdir(exist_ok=True)
-
-    newfilepath = new_output_path / newfilepath.name
-    newfilepath.touch()
-
-    with newfilepath.open(mode="w", encoding="utf-8") as nfp:
+    with output_path.open(mode="w", encoding="utf-8") as nfp:
         nfp.write(json.dumps(dict_list, indent=2))
 
 
-def translate(filepath):
-    print("starting: " + filepath.name)
-    dl = get_dict_list(filepath)
+def translate(ff, filepath, output_path):
+    print("starting: " + ff.name)
+    dl = get_dict_list(ff)
     tdl = get_translated_dict_list(dl)
-    save_to_new_file(filepath, tdl)
+    save_to_new_file(filepath, ff, tdl, output_path)
+
 
 if __name__ == "__main__":
     pass

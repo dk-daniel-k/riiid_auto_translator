@@ -1,23 +1,26 @@
 from utils.setenv import setenv
 from utils.validators import Validator
-import translators
+from translators import json_files, xlsx
 
 
-def main(filepath):
+def main(filepath, output_path):
  
-    filepath = r"C:\Users\admin\Downloads\parsed_rev\문법"
     found_files = Validator(filepath).found_files
 
     setenv()
 
     extension_map = {
-        '.json': translators.json_files.translate,
-        '.xlsx': translators.xlsx.translate,
-        '.xls': translators.xls.translate
+        '.json': json_files.translate,
+        '.xlsx': xlsx.translate,
+        '.xls': xlsx.translate
     }
 
     # begin main function
     for ff in found_files:
         translator = extension_map.get(ff.suffix)
-        translator()
-        
+        translator(ff, filepath, output_path)
+
+if __name__ == "__main__":
+    output_path = "./output"
+    filepath = r"C:\Users\admin\Downloads\mock_data"
+    main(filepath, output_path)

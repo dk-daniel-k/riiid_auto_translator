@@ -4,7 +4,8 @@ from pathlib import Path
 import pandas as pd
 from decouple import config
 
-from api_handler import translate_document
+from .api_handler import translate_document
+from utils.helpers import create_file_folder
 
 
 def convert_to_xlsx(filepath) -> PathLike:
@@ -16,22 +17,17 @@ def convert_to_xlsx(filepath) -> PathLike:
     return filepath
 
 
-def translate(filepath):
-    if filepath.suffix == ".xls":
-        filepath = convert_to_xlsx(filepath)
+def translate(ff, filepath, output_path):
+    if ff.suffix == ".xls":
+        excel_ff = convert_to_xlsx(ff)
+    else:
+        excel_ff = ff
 
-    response = translate_document(config("PROJECT_ID"), filepath)
+    response = translate_document(config("PROJECT_ID"), excel_ff)
 
-    output_folder = "output"
+    output_path = create_file_folder(filepath, ff, output_path)
 
-    newfilepath = Path(filepath)
-    new_output_path = newfilepath.parent.joinpath(output_folder)
-    new_output_path.mkdir(exist_ok=True)
-
-    newfilepath = new_output_path / newfilepath.name
-    newfilepath.touch()
-
-    with newfilepath.open(mode="wb") as nfp:
+    with output_path.open(mode="wb") as nfp:
         nfp.write(response)
 
 
