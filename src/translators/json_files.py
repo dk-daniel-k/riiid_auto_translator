@@ -45,7 +45,7 @@ def get_translated_dict_list(dict_list: List[Dict]) -> List[Dict]:
     api_chars = 0
 
     for d in dict_list:
-        print(f"{dict_list.index(d)}", end="\r")
+
         bool_map = [isinstance(v, str) for v in d.values()]
         original_value_list = [v for v in d.values()]
         string_value_list = [v for v in d.values() if isinstance(v, str)]
