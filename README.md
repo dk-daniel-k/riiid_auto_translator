@@ -12,8 +12,6 @@ The module currently supports the following types of file: `json`.
     
     # make a temporary dictionary (or permanently stored in a excel in the root folder) so that already-translated words don't have to invoke API (have to solve the racing condition because of the multithreading)
 
-    # try converting txts into docxs, translate, and turn them back into txt (for speed)
-
     # test (make sure input json # and output json # are the same)write unit test but also write in-functionv validation
 
     # make argparse (be able to set file paths and output paths and excel glossary path)
