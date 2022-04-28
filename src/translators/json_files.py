@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 from typing import Dict, List
+import logging
 
 from . import api_handler as ah
 from utils.helpers import create_file_folder
@@ -86,7 +87,8 @@ def save_to_new_file(filepath: Path, ff: str, dict_list: List[Dict], output_path
 
 
 def translate(ff, filepath, output_path):
-    print("starting: " + ff.name)
+    logger = logging.getLogger(__name__)
+    logger.info(f"Starting: {ff}")
     dl = get_dict_list(ff)
     tdl = get_translated_dict_list(dl)
     save_to_new_file(filepath, ff, tdl, output_path)

@@ -1,11 +1,12 @@
+import logging
 from os import PathLike
 from pathlib import Path
 
 import pandas as pd
 from decouple import config
+from utils.helpers import create_file_folder
 
 from .api_handler import translate_document
-from utils.helpers import create_file_folder
 
 
 def convert_to_xlsx(filepath) -> PathLike:
@@ -18,7 +19,8 @@ def convert_to_xlsx(filepath) -> PathLike:
 
 
 def translate(ff, filepath, output_path):
-    print("starting: " + ff.name)
+    logger = logging.getLogger(__name__)
+    logger.info("starting: " + ff.name)
     if ff.suffix == ".xls":
         excel_ff = convert_to_xlsx(ff)
     else:
