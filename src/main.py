@@ -2,6 +2,8 @@ from utils.setenv import setenv
 from utils.validators import Validator
 from translators import json_files, xlsx
 from utils.logger import logger
+from collections import Counter
+
 
 def main(filepath, output_path):
  
@@ -17,10 +19,15 @@ def main(filepath, output_path):
         '.xls': xlsx.translate
     }
 
+    final_count = Counter({})
     # begin main function
     for ff in found_files:
         translator = extension_map.get(ff.suffix)
-        translator(ff, filepath, output_path)
+        meta = translator(ff, filepath, output_path)
+        final_count += Counter(meta)
+    
+    logger.info(f"API calls made: {final_count['api_calls']}")
+    logger.info(f"Number of chars sent: {final_count['api_chars']}")
 
 if __name__ == "__main__":
     output_path = r"C:\Users\admin\Downloads\output"

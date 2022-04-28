@@ -19,8 +19,10 @@ def convert_to_xlsx(filepath) -> PathLike:
 
 
 def translate(ff, filepath, output_path):
+
     logger = logging.getLogger(__name__)
     logger.info("starting: " + ff.name)
+
     if ff.suffix == ".xls":
         excel_ff = convert_to_xlsx(ff)
     else:
@@ -32,6 +34,8 @@ def translate(ff, filepath, output_path):
 
     with output_path.open(mode="wb") as nfp:
         nfp.write(response)
+    
+    return {'api_calls': 0, 'api_chars': 0}
 
 
 if __name__ == "__main__":

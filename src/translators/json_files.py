@@ -41,6 +41,8 @@ def get_translated_dict_list(dict_list: List[Dict]) -> List[Dict]:
     List[dict]
     """
     new_dict_list = []
+    api_calls = 0
+    api_chars = 0
 
     for d in dict_list:
         print(f"{dict_list.index(d)}", end="\r")
@@ -49,6 +51,10 @@ def get_translated_dict_list(dict_list: List[Dict]) -> List[Dict]:
         string_value_list = [v for v in d.values() if isinstance(v, str)]
 
         # google cloud translation API call made here
+        # count api calls and number of chars sent
+
+        api_calls += 1
+        api_chars += len(''.join(string_value_list))
         result = ah.translate_text_with_model("en", string_value_list)
         result = [v["translatedText"] for v in result]
 
@@ -62,7 +68,7 @@ def get_translated_dict_list(dict_list: List[Dict]) -> List[Dict]:
         new_dict = dict(zip(d.keys(), new_list))
         new_dict_list.append(new_dict)
 
-    return new_dict_list
+    return new_dict_list, {"api_calls": api_calls, "api_chars": api_chars}
 
 
 def save_to_new_file(filepath: Path, ff: str, dict_list: List[Dict], output_path: str) -> None:
@@ -87,11 +93,15 @@ def save_to_new_file(filepath: Path, ff: str, dict_list: List[Dict], output_path
 
 
 def translate(ff, filepath, output_path):
+
     logger = logging.getLogger(__name__)
-    logger.info(f"Starting: {ff}")
+    logger.info(f"Starting: {ff.name}")
+
     dl = get_dict_list(ff)
-    tdl = get_translated_dict_list(dl)
+    tdl, meta = get_translated_dict_list(dl)
     save_to_new_file(filepath, ff, tdl, output_path)
+
+    return meta
 
 
 if __name__ == "__main__":
