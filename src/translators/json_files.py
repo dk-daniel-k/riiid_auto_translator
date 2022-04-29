@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Callable
 import logging
 import concurrent.futures
 from tqdm import tqdm
@@ -24,7 +24,15 @@ def get_dict_list(filepath: str) -> List[Dict]:
         return json.load(fp)
 
 
-def get_translated_dict(d):
+def get_translated_dict(d: Dict) -> Dict:
+    """Translate a singular dict with google cloud translation
+
+    Args:
+        d (Dict): original dict containing the source language
+
+    Returns:
+        Dict: translated dict with the target language
+    """
 
     bool_map = [isinstance(v, str) for v in d.values()]
     original_value_list = [v for v in d.values()]
@@ -47,13 +55,24 @@ def get_translated_dict(d):
     return dict(zip(d.keys(), new_list))
 
 
-def tqdm_multithreading(f, dict_list):
+def tqdm_multithreading(f: Callable, dict_list: List) -> List:
+    """Use multithreding and tqdm to call `f`.
+
+    Args:
+        f (Callable): main translator function
+        dict_list (List): list of dicts to be translated
+
+    Returns:
+        List: list of translated dicts
+    """
+
     with concurrent.futures.ThreadPoolExecutor() as executor:
         results = list(tqdm(executor.map(f, dict_list), total=len(dict_list)))
+
     return results
 
 
-def get_translated_dict_list(dict_list: List[Dict]) -> List[Dict]:
+def get_translated_dict_list(dict_list: List[Dict]) -> tuple[List[Dict], Dict]:
     """Handle translation.
 
     This function iterates each dict in the list, creates a list sequence of
@@ -70,6 +89,10 @@ def get_translated_dict_list(dict_list: List[Dict]) -> List[Dict]:
     Return
     ------
     List[dict]
+    {
+        api_calls: int,
+        api_chars: int
+    }
     """
 
     new_dict_list = tqdm_multithreading(get_translated_dict, dict_list)
