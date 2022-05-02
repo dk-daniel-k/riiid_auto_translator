@@ -96,7 +96,7 @@ def get_translated_dict_list(dict_list: List[Dict]) -> tuple[List[Dict], Dict]:
     """
 
     new_dict_list = tqdm_multithreading(get_translated_dict, dict_list)
-    new_dict_list = sorted(new_dict_list, key=lambda x: x['sequence'])
+    new_dict_list = sorted(new_dict_list, key=lambda x: x['sequence']) # this won't work if the json doesn't have 'sequence'
 
     meta = {
         "api_calls": len(dict_list),
