@@ -10,11 +10,13 @@ The module currently supports the following types of file: `json`.
 
     # to do:
     
-    # make a temporary dictionary (or permanently stored in a excel in the root folder) so that already-translated words don't have to invoke API (have to solve the racing condition because of the multithreading)
+    # make a temporary dictionary (or permanently stored in a excel in the root folder) so that already-translated words don't have to invoke API (have to solve the racing condition because of the multithreading) (re.compile("[ㄱ-힣]"))
 
     # test (make sure input json # and output json # are the same)write unit test but also write in-functionv validation
 
     # make argparse (be able to set file paths and output paths and excel glossary path)
+
+    # enable custom list sort by accepting key
 
     # make a GUI
 
