@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 from decouple import config
-from utils.helpers import create_file_folder
+from utils.helpers import PathHandler
 
 from .api_handler import translate_document
 
@@ -29,8 +29,8 @@ def translate(ff, filepath, output_path):
         excel_ff = ff
 
     response = translate_document(config("PROJECT_ID"), excel_ff)
-
-    output_path = create_file_folder(filepath, ff, output_path)
+    ph = PathHandler(filepath, ff, output_path)
+    output_path = ph.create_file_folder()
 
     with output_path.open(mode="wb") as nfp:
         nfp.write(response)

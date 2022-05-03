@@ -6,7 +6,8 @@ import concurrent.futures
 from tqdm import tqdm
 
 from . import api_handler as ah
-from utils.helpers import create_file_folder
+from utils.validators import Validator
+from utils.helpers import PathHandler
 
 
 def get_dict_list(filepath: str) -> List[Dict]:
@@ -124,14 +125,14 @@ def save_to_new_file(
     ------
     None
     """
-
-    output_path = create_file_folder(filepath, ff, output_path)
+    ph = PathHandler(filepath, ff, output_path)
+    output_path = ph.create_file_folder()
 
     with output_path.open(mode="w", encoding="utf-8") as nfp:
         nfp.write(json.dumps(dict_list, indent=2))
 
 
-def translate(ff, filepath, output_path):
+def translate(ff: Path, filepath: str, output_path: str) -> None:
 
     logger = logging.getLogger(__name__)
     logger.info(f"Starting: {ff.name}")
@@ -139,6 +140,8 @@ def translate(ff, filepath, output_path):
     dl = get_dict_list(ff)
     tdl, meta = get_translated_dict_list(dl)
     save_to_new_file(filepath, ff, tdl, output_path)
+
+    logger.info(f"Saved to: {output_path}")
 
     return meta
 

@@ -1,7 +1,7 @@
 from os import PathLike
 from pathlib import Path
 from typing import List
-
+from utils.exceptions import SamePathError
 
 class Validator:
 
@@ -65,4 +65,9 @@ class Validator:
     def get_output_path_files(self):
         found_op_files = Path(self.output_path).rglob("*")
         return [f.relative_to(self.output_path) for f in found_op_files]
+
+    @staticmethod
+    def is_same_path(cls, filepath, output_path):
+        if Path(filepath) == Path(output_path):
+            raise SamePathError(f"Same input/output path given: \nIntput: {Path(filepath)} \nOutput: {Path(output_path)}")
 

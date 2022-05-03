@@ -1,0 +1,2 @@
+class SamePathError(Exception):
+    pass

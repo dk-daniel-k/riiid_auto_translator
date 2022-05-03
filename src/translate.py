@@ -3,9 +3,13 @@ from utils.validators import Validator
 from translators import json_files, xlsx
 from utils.logger import logger
 from collections import Counter
+from utils.argparser import parser
 
 
-def main(filepath, output_path):
+args = parser.parse_args()
+
+
+def main(filepath: str, output_path: str) -> None:
  
     # find and make a list of files
     found_files = Validator(filepath, output_path).found_files
@@ -30,6 +34,6 @@ def main(filepath, output_path):
     logger.info(f"Number of chars sent: {final_count['api_chars']}")
 
 if __name__ == "__main__":
-    output_path = r"C:\Users\admin\Downloads\output"
-    filepath = r"C:\Users\admin\Downloads\mock_data"
+    output_path = args.output_path
+    filepath = args.file_path
     main(filepath, output_path)
